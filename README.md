@@ -11,3 +11,10 @@
     - Java
 
 
+### Funcionalidades : :computer:
+    - Cadastro de Pessoas
+    - Pesquisa de lançamentos
+    - Novos lançamentos
+    - Emissão de relatórios
+    - Envios de e-mails
+    - Gerenciamento de lançamentos vencidos ou a vencer 
