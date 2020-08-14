@@ -7,7 +7,7 @@
 
 ### Tecnologias utilizadas :
     - Spring Boot
-    - Maven
+    - Mavengit 
     - Java
 
 
