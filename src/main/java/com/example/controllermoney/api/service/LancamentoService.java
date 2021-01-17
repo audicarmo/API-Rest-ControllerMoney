@@ -13,7 +13,6 @@ import com.example.controllermoney.api.dto.LancamentoEstatisticaPessoa;
 import com.example.controllermoney.api.mail.Mailer;
 import com.example.controllermoney.api.model.Lancamento;
 import com.example.controllermoney.api.model.Pessoa;
-import com.example.controllermoney.api.model.Usuario;
 import com.example.controllermoney.api.repository.LancamentoRepository;
 import com.example.controllermoney.api.repository.PessoaRepository;
 import com.example.controllermoney.api.repository.UsuarioRepository;
@@ -44,16 +43,10 @@ public class LancamentoService {
 
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
-	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private Mailer mailer;
-	
-	@Autowired
-	private S3 s3;
-	
+
 	@Scheduled(cron = "0 0 6 * * *")
 	public void avisarSobreLancamentosVencidos() {
 		if (logger.isDebugEnabled()) {
@@ -71,19 +64,18 @@ public class LancamentoService {
 		}
 		
 		logger.info("Exitem {} lançamentos vencidos.", vencidos.size());
-		
-		List<Usuario> destinatarios = usuarioRepository
-				.findByPermissoesDescricao(DESTINATARIOS);
-		
+
+		List<Pessoa> destinatarios = (List<Pessoa>) pessoaRepository;
+
 		if (destinatarios.isEmpty()) {
 			logger.warn("Existem lançamentos vencidos, mas o "
 					+ "sistema não encontrou destinatários.");
-			
+
 			return;
 		}
-		
+
 		mailer.avisarSobreLancamentosVencidos(vencidos, destinatarios);
-		
+
 		logger.info("Envio de e-mail de aviso concluído."); 
 	}
 	
@@ -97,40 +89,11 @@ public class LancamentoService {
 		
 		InputStream inputStream = this.getClass().getResourceAsStream(
 				"/relatorios/lancamentos-por-pessoa.jasper");
-		
+
 		JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parametros,
 				new JRBeanCollectionDataSource(dados));
-		
+
 		return JasperExportManager.exportReportToPdf(jasperPrint);
-	}
-
-	public Lancamento salvar(Lancamento lancamento) {
-		validarPessoa(lancamento);
-		
-		if (StringUtils.hasText(lancamento.getAnexo())) {
-			s3.salvar(lancamento.getAnexo());
-		}
-
-		return lancamentoRepository.save(lancamento);
-	}
-
-	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
-		Lancamento lancamentoSalvo = buscarLancamentoExistente(codigo);
-		if (!lancamento.getPessoa().equals(lancamentoSalvo.getPessoa())) {
-			validarPessoa(lancamento);
-		}
-		
-		if (StringUtils.isEmpty(lancamento.getAnexo())
-				&& StringUtils.hasText(lancamentoSalvo.getAnexo())) {
-			s3.remover(lancamentoSalvo.getAnexo());
-		} else if (StringUtils.hasText(lancamento.getAnexo())
-				&& !lancamento.getAnexo().equals(lancamentoSalvo.getAnexo())) {
-			s3.substituir(lancamentoSalvo.getAnexo(), lancamento.getAnexo());
-		}
-
-		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
-
-		return lancamentoRepository.save(lancamentoSalvo);
 	}
 
 	private void validarPessoa(Lancamento lancamento) {

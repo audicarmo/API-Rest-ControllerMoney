@@ -10,7 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.example.controllermoney.api.model.Lancamento;
-import com.example.controllermoney.api.model.Usuario;
+import com.example.controllermoney.api.model.Pessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,32 +20,32 @@ import org.thymeleaf.context.Context;
 
 @Component
 public class Mailer {
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private TemplateEngine thymeleaf;
-		
+
 //	@Autowired
 //	private LancamentoRepository repo;
 //	@EventListener
 //	private void teste(ApplicationReadyEvent event) {
 //		String template = "mail/aviso-lancamentos-vencidos";
-//		
+//
 //		List<Lancamento> lista = repo.findAll();
-//		
+//
 //		Map<String, Object> variaveis = new HashMap<>();
 //		variaveis.put("lancamentos", lista);
-//		
+//
 //		this.enviarEmail("audineiadelimar@gmail.com",
 //				Arrays.asList("audineiadelima@gmail.com"),
 //				"Testando", template, variaveis);
 //		System.out.println("Terminado o envio de e-mail...");
 //	}
-	
+
 	public void avisarSobreLancamentosVencidos(
-			List<Lancamento> vencidos, List<Usuario> destinatarios) {
+			List<Lancamento> vencidos, List<Pessoa> destinatarios) {
 		Map<String, Object> variaveis = new HashMap<>();
 		variaveis.put("lancamentos", vencidos);
 		

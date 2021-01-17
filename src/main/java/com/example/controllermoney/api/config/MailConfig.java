@@ -2,7 +2,6 @@ package com.example.controllermoney.api.config;
 
 import java.util.Properties;
 
-import com.example.controllermoney.api.config.property.ControllerMoneyApiProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
