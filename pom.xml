@@ -21,6 +21,8 @@
 		<flyway-core.version>6.4.2</flyway-core.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<jasperreports.version>6.5.1</jasperreports.version>
+		<docker.image.prefix>controllermoney_api</docker.image.prefix>
+		<docker-file-plugin.version>1.4.13</docker-file-plugin.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 		<flyway-maven-plugin.version>6.4.2</flyway-maven-plugin.version>
 		<jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
@@ -157,6 +159,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>${docker-file-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.flywaydb</groupId>

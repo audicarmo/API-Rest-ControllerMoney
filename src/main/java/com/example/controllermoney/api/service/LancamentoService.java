@@ -10,25 +10,20 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.controllermoney.api.dto.LancamentoEstatisticaPessoa;
-import com.example.controllermoney.api.mail.Mailer;
 import com.example.controllermoney.api.model.Lancamento;
 import com.example.controllermoney.api.model.Pessoa;
 import com.example.controllermoney.api.repository.LancamentoRepository;
 import com.example.controllermoney.api.repository.PessoaRepository;
-import com.example.controllermoney.api.repository.UsuarioRepository;
 import com.example.controllermoney.api.service.exception.PessoaInexistenteOuInativaException;
-import com.example.controllermoney.api.storage.S3;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 
 @Service
@@ -43,9 +38,6 @@ public class LancamentoService {
 
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
-
-	@Autowired
-	private Mailer mailer;
 
 	@Scheduled(cron = "0 0 6 * * *")
 	public void avisarSobreLancamentosVencidos() {
@@ -73,8 +65,6 @@ public class LancamentoService {
 
 			return;
 		}
-
-		mailer.avisarSobreLancamentosVencidos(vencidos, destinatarios);
 
 		logger.info("Envio de e-mail de aviso concluído."); 
 	}
@@ -115,4 +105,11 @@ public class LancamentoService {
 		return lancamentoSalvo.get();
 	}
 
+	public Lancamento salvar(Lancamento lancamento) {
+		return null;
+	}
+
+	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
+		return null;
+	}
 }

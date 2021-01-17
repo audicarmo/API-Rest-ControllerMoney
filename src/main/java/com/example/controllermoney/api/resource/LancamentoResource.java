@@ -20,7 +20,6 @@ import com.example.controllermoney.api.repository.filter.LancamentoFilter;
 import com.example.controllermoney.api.repository.projection.ResumoLancamento;
 import com.example.controllermoney.api.service.LancamentoService;
 import com.example.controllermoney.api.service.exception.PessoaInexistenteOuInativaException;
-import com.example.controllermoney.api.storage.S3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -61,15 +60,7 @@ public class LancamentoResource {
 	
 	@Autowired
 	private MessageSource messageSource;
-	
-	@Autowired
-	private S3 s3;
-	
-	@PostMapping("/anexo")
-	public Anexo uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
-		String nome = s3.salvarTemporariamente(anexo);
-		return new Anexo(nome, s3.configurarUrl(nome));
-	}
+
 		@GetMapping("/relatorios/por-pessoa")
 	public ResponseEntity<byte[]> relatorioPorPessoa(
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate inicio, 
