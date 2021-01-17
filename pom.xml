@@ -13,7 +13,7 @@
 	<artifactId>controllermoney-api</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>controllermoney-api</name>
-	<description>Api de gerenciamento de folha de pagamento.</description>
+	<description>Api-Rest para o gerenciamento de folha de pagamento.</description>
 
 	<properties>
 		<java.version>1.8</java.version>

@@ -58,4 +58,7 @@ public class Contato {
 			return false;
 		return true;
 	}
+
+	public void setPessoa(Pessoa pessoaSalva) {
+	}
 }
