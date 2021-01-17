@@ -16,18 +16,19 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-
-		<spring-security-oauth2.version>2.2.1.RELEASE</spring-security-oauth2.version>
-		<spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
-
+		<flyway-core.version>6.4.2</flyway-core.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
 		<jasperreports.version>6.5.1</jasperreports.version>
-		<jasperreports-functions.version>6.5.1</jasperreports-functions.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<flyway-maven-plugin.version>6.4.2</flyway-maven-plugin.version>
 		<jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
-
-		<aws-java-sdk.version>1.11.274</aws-java-sdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
+		<spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
+		<jasperreports-functions.version>6.5.1</jasperreports-functions.version>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<spring-security-oauth2.version>2.2.1.RELEASE</spring-security-oauth2.version>
 	</properties>
 
 	<dependencies>
@@ -38,11 +39,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
 		<dependency>
@@ -73,20 +69,26 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- SpringFox(Swagger) -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger-ui.version}</version>
+		</dependency>
 		
 		<!-- Migrações Flyway -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
-			<version>6.4.2</version>
+			<version>${flyway-core.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.197</version>
-		</dependency>
-		
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -109,24 +111,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>${spring-security-oauth2.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-			<version>${spring-security-jwt.version}</version>
+			<version>${jasperreports-fonts.version}</version>
 		</dependency>
 
 		<dependency>
@@ -153,18 +138,6 @@
 			<artifactId>jasperreports-fonts</artifactId>
 			<version>${jasperreports-fonts.version}</version>
 		</dependency>
-
-		<!-- Amazon S3 -->
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>${aws-java-sdk.version}</version>
-		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 	<build>
@@ -176,7 +149,7 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>6.4.2</version>
+				<version>${flyway-maven-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>
